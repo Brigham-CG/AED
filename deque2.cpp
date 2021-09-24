@@ -10,29 +10,49 @@ class Deque
     int *ini;
     int *end;
     int size = 5;
+    int cantEle;
 
     public:
 
         Deque()
         {
             map = new int * [size];
+            // añadir posiciones iniciales
             endMap = iniMap = map + size / 2;
             *iniMap = new int[size];
             end = ini = *iniMap + size / 2;
+            end--;
+            //
+            cantEle = size / 2;
+        }
+
+        void expand_map()
+        {
+            int **t = new int*[size + 2];
+            int **tt = t;
+            tt++;
+            for (int **ptr = map; ptr < map + size; ptr++){
+                *tt = *ptr; 
+            }
+            map = t;
         }
 
         void push_back(int x)
         {
-            if(endMap == *map + size-1)
-            {
-
-            }
             if(end == *endMap + size - 1)
             {
-                //el array esta lleno, se crea uno nuevo
-                endMap++;
-                end = *endMap = new int[size];
-                *end = x;
+            
+                if(endMap== map + size - 1)
+                {
+                     // expandir mapa
+                    expand_map();
+                }
+                else{
+                    //el array esta lleno, se crea uno nuevo
+                    endMap++;
+                    end = *endMap = new int[size];
+                    *end = x;
+                }
             }
             else
             {
@@ -46,17 +66,26 @@ class Deque
         {
             if(ini == *iniMap)
             {
-                //el array esta lleno, se crea uno nuevo
-                iniMap--;
-                *iniMap = new int [size];
-                ini = *iniMap + size ;
-                *ini = x;
+                if(endMap== map + size - 1)
+                {
+                    // expandir mapa
+                    expand_map();
+                }
+                else{
+                    //el array esta lleno, se crea uno nuevo
+                    iniMap--;
+                    *iniMap = new int [size];
+                    ini = *iniMap + size ;
+                    *ini = x;
+                    cantEle = size;
+                }
             }
             else
             {
                 // el array aun no esta lleno entonces se trabaja sobre el mismo 
                 ini--;
                 *ini = x;
+                cantEle--;
             }
         }
 
@@ -94,9 +123,11 @@ class Deque
                 delete *iniMap;
                 iniMap++;
                 ini = *iniMap;
+                cantEle = 0;
             }
             else{
                 ini++;
+                cantEle++;
             }
         }
 
@@ -120,8 +151,7 @@ class Deque
             
             // descontar la cantidad de numeros. al primer array
 
-
-            return *(*fila + i - size*i / 2); 
+            return *(*fila + (i + cantEle) % size); 
         }
 
 };
@@ -129,20 +159,15 @@ class Deque
 int main()
 {
     Deque d;
-    d.push_back(3);
-    d.push_front(4);
-    d.push_back(3);
-    d.push_front(4);
-    d.push_back(3);
-    d.push_front(4);
-    d.push_back(3);
-    d.push_front(4);
-    d.push_back(3);
-    d.push_front(4);
-    d.push_back(3);
-    d.push_front(4);
+    d.push_front(-1);
+    d.push_back(1);
+    d.push_front(-2);
+    d.push_back(2);
+    
     d.print();
     d.pop_back();
     d.pop_front();
     d.print();
+    int &a = d[2];
+    cout << a << endl;
 }
