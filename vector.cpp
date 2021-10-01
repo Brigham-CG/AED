@@ -1,38 +1,6 @@
 #include <iostream>
 using namespace std;
 
-class Nodo{
-
-    private: 
-        int dato = 0;
-        Nodo *siguientePtr = nullptr;
-    public:
-        Nodo(int dato): dato(dato){};
-        void establecerDatos(int);
-        int obtenerDatos() const;
-        void establecerSiguientePtr(Nodo *);
-        Nodo *obtenerSiguientePtr() const{
-            return this->siguientePtr;
-        };
-};
-
-
-
-void Nodo::establecerDatos(int dato)
-{   
-    this->dato = dato;
-}
-
-int Nodo::obtenerDatos() const
-{
-    return this->dato;
-}
-
-void Nodo::establecerSiguientePtr(Nodo * nuevoPtr)
-{   
-    this->siguientePtr = nuevoPtr;
-}
-
 class Vector{
 
     public:
@@ -141,22 +109,6 @@ class Vector{
 
 int main()
 {
-
-    // Nodo nodo(3);
-    // Nodo nodo_1(4);
-    // cout << nodo.obtenerDatos() << endl;
-    // nodo.establecerSiguientePtr(&nodo_1);
-    // cout << &nodo_1 << endl;
-    // cout << nodo.obtenerSiguientePtr() << endl;
-    // Nodo *nodo1 = new Nodo(1);
-    // Nodo *nodo2 = new Nodo(2);
-    // Nodo *nodo3 = new Nodo(3);
-    // nodo1->establecerSiguientePtr(nodo2);
-    // nodo2->establecerSiguientePtr(nodo3);
-    // for (;nodo1; nodo1 = nodo1->obtenerSiguientePtr())
-    //     cout << nodo1->obtenerDatos() << "-->";
-    // cout << "NULL\n";
-
     Vector vec(5);
     for (int i = 0; i < 12; i++){
         vec.push_back(i);

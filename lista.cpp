@@ -2,26 +2,28 @@
 
 using namespace std;
 
+template <class T>
 struct Node{
 
-    int dato = 0;
-    Node *next = nullptr;
-    Node *before = nullptr;
-    Node(int datoIn = 0, Node *nextIn = nullptr, Node *beforeIn = nullptr):
+    T dato = 0;
+    Node<T> *next = nullptr;
+    Node<T> *before = nullptr;
+    Node(int datoIn = 0, Node<T> *nextIn = nullptr, Node<T> *beforeIn = nullptr):
      dato(datoIn), next(nextIn), before(beforeIn){};
 };
 
-class Lista
+template <class T>
+class List
 {   
-    Node *HEAD;
-    Node *TAIL;
+    Node<T> *HEAD;
+    Node<T> *TAIL;
     int n_elem = 0;
     public:
 
         void push_back(int dato)
         {
             
-            Node *ele = new Node(dato);
+            Node<T> *ele = new Node<T>(dato);
             if(!n_elem)
             {
                 HEAD = TAIL = ele;
@@ -35,7 +37,7 @@ class Lista
 
         void push_front(int dato)
         {
-            Node *ele = new Node(dato);
+            Node<T> *ele = new Node<T>(dato);
             if(!n_elem)
             {
                 HEAD = TAIL = ele;
@@ -74,7 +76,7 @@ class Lista
         {
 
             cout << "HEAD ";
-            for (Node *ptr = HEAD;ptr; ptr = ptr->next)
+            for (Node<T> *ptr = HEAD;ptr; ptr = ptr->next)
             {
                 cout << " <--> "<< ptr->dato ;
             }     
@@ -87,7 +89,7 @@ class Lista
             if(i >= n_elem)
                 i = n_elem -1;
 
-            Node *ptr = HEAD; 
+            Node<T> *ptr = HEAD; 
             for(int k = 0; k < i; k++){
                 ptr = ptr->next;
             }
@@ -95,10 +97,9 @@ class Lista
         }
 };
 
-
 int main()
 {
-    Lista lista;
+    List<int> lista;
     lista.push_back(3);
     lista.push_back(2);
     lista.push_back(1);
